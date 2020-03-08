@@ -10,10 +10,6 @@ bot.message(content: 'Ping!') do |event|
   event.respond 'Pong!'
 end
 
-bot.message(content: 'Loli') do |event|
-  event.respond 'is a retarded piece of shit.'
-end
-
 bot.message(content: 'guild') do |event|
   response = HTTParty.get(
     "#{api_link}/guilds/601620022632120370",

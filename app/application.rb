@@ -18,10 +18,6 @@ module Application
   def development?
     environment == 'development'
   end
-
-  def root
-    File.join('..')
-  end
 end
 
 Bundler.require(:default, Application.environment)
