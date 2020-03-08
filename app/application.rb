@@ -27,6 +27,10 @@ module Application
     "https://discordapp.com/api/v#{discord_api_version}"
   end
 
+  def database_link
+    'http://localhost:3000/api/v1'
+  end
+
   def feature_class(feature_name)
     require_relative "bot/features/#{file_name(feature_name)}"
     Object.const_get("Bot::Features::#{feature_name}")

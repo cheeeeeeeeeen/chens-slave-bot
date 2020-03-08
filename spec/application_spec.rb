@@ -107,6 +107,14 @@ RSpec.describe Application do
       end
     end
 
+    describe '#database_link' do
+      it 'returns a link' do
+        expect(described_class.api_link).to(
+          eq('http://localhost:3000/api/v1')
+        )
+      end
+    end
+
     describe '#feature_class' do
       it 'loads the class' do
         described_class.feature_class('Base')
