@@ -1,7 +1,7 @@
 require_relative '../../../app/bot/features/ping'
 
 RSpec.describe Bot::Features::Ping do
-  let(:ping) { described_class.new('a bot') }
+  let(:ping) { described_class.new('a bot', 'an assembler') }
 
   describe 'Process Methods' do
     describe '#process_reply' do
