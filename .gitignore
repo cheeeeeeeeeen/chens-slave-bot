@@ -2,3 +2,4 @@ coverage/
 .ruby-version
 .env
 .DS_Store
+.byebug_history
