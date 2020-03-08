@@ -3,8 +3,7 @@ RSpec.describe Bot::Assembler do
   let(:assembler_with_args) do
     described_class.new(
       key: 'rofl',
-      client_id: 'grab',
-      prefix: '$$'
+      client_id: 'grab'
     )
   end
 
@@ -27,10 +26,6 @@ RSpec.describe Bot::Assembler do
       it 'initializes @client_id based on ENV' do
         expect(assembler.client_id).to eq('client')
       end
-
-      it 'initializes @prefix to the default value' do
-        expect(assembler.prefix).to eq('!')
-      end
     end
 
     context 'with arguments specified' do
@@ -40,10 +35,6 @@ RSpec.describe Bot::Assembler do
 
       it 'initializes @client_id based on the argument' do
         expect(assembler_with_args.client_id).to eq('grab')
-      end
-
-      it 'initializes @client_id based on the argument' do
-        expect(assembler_with_args.prefix).to eq('$$')
       end
     end
   end
