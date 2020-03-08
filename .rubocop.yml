@@ -18,6 +18,7 @@ Style/SymbolArray:
 Metrics/BlockLength:
   Exclude:
     - Guardfile
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false
