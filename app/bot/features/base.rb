@@ -12,6 +12,10 @@ module Bot
         action
       end
 
+      def build_words(words_array)
+        words_array.join(' ')
+      end
+
       private
 
       def action; end

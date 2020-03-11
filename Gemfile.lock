@@ -121,6 +121,7 @@ DEPENDENCIES
   awesome_print
   byebug
   discordrb
+  discordrb-webhooks
   dotenv
   guard-rspec
   guard-rubocop
