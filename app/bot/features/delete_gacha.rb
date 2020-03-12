@@ -19,7 +19,10 @@ module Bot
 
       def destroy_gacha(key_name)
         HTTParty.delete(
-          "#{Application.database_link}/guilds/#{guild.id}/gachas/#{key_name}"
+          "#{Application.database_link}/gachas/#{key_name}",
+          body: {
+            guild_id: guild.id
+          }
         )
       end
     end

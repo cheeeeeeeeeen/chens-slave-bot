@@ -21,8 +21,9 @@ module Bot
 
       def create_gacha(key_name, name)
         HTTParty.post(
-          "#{Application.database_link}/guilds/#{guild.id}/gachas",
+          "#{Application.database_link}/gachas",
           body: {
+            guild_id: guild.id,
             key_name: key_name,
             name: name
           }

@@ -21,7 +21,10 @@ module Bot
 
       def fetch_gachas
         @gachas_json = HTTParty.get(
-          "#{Application.database_link}/guilds/#{guild.id}/gachas"
+          "#{Application.database_link}/gachas",
+          body: {
+            guild_id: guild.id
+          }
         )
         @gachas_json = @gachas_json['gachas']
       end
