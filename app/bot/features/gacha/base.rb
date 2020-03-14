@@ -11,7 +11,7 @@ module Bot
         end
 
         def perform
-          event.respond("This action in the Gacha module is not yet supported.")
+          event.respond('This action in the Gacha module is not yet supported.')
         end
 
         def guild

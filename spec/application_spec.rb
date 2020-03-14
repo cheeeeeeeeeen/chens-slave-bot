@@ -109,7 +109,7 @@ RSpec.describe Application do
 
     describe '#database_link' do
       it 'returns a link' do
-        expect(described_class.api_link).to(
+        expect(described_class.database_link).to(
           eq('http://localhost:3000/api/v1')
         )
       end
