@@ -9,6 +9,10 @@ module Bot
           end
         end
 
+        def name
+          @name ||= Application.build_words(arguments[1...arguments.count])
+        end
+
         private
 
         def create_gacha
@@ -20,10 +24,6 @@ module Bot
               name: name
             }
           )
-        end
-
-        def name
-          @name ||= Application.build_words(arguments[1...arguments.count])
         end
       end
     end

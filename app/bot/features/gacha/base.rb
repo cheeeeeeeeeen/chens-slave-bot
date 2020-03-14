@@ -14,8 +14,6 @@ module Bot
           event.respond("This action in the Gacha module is not yet supported.")
         end
 
-        private
-
         def guild
           @guild ||= gacha.guild
         end
