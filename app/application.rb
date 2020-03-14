@@ -36,11 +36,20 @@ module Application
     Object.const_get("Bot::Features::#{feature_name}")
   end
 
+  def action_class(feature, action)
+    require_relative "#{file_name(feature)}/#{file_name(action)}"
+    Object.const_get("#{feature}::#{action.capitalize}")
+  end
+
   def file_name(class_name)
     class_name.gsub(/::/, '/')
               .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
               .gsub(/([a-z\d])([A-Z])/, '\1_\2')
               .tr('-', '_').downcase
+  end
+
+  def build_words(words_array)
+    words_array.join(' ')
   end
 end
 
