@@ -17,6 +17,7 @@ module Bot
             data += "\n**#{gch['name']}** (#{gch['key_name']})"
           end
           data[0] = ''
+          data = '*No Gachas yet.*' if data == ''
           data
         end
 
@@ -26,7 +27,7 @@ module Bot
           @gachas_json = HTTParty.get(
             gacha.request_link,
             body: {
-              guild_id: guild.id
+              guild_id: gacha.guild.id
             }
           )
           @gachas_json = @gachas_json['gachas']

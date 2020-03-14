@@ -3,17 +3,17 @@ module Bot
     class Gacha
       class Delete < Bot::Features::Gacha::Base
         def perform
-          destroy_gacha(key_name)
+          destroy_gacha
           event.respond('Deleted that worthless scam!')
         end
 
         private
 
-        def destroy_gacha(key_name)
+        def destroy_gacha
           HTTParty.delete(
-            "#{gacha.request_link}/#{key_name}",
+            "#{gacha.request_link}/#{gacha.key_name}",
             body: {
-              guild_id: guild.id
+              guild_id: gacha.guild.id
             }
           )
         end

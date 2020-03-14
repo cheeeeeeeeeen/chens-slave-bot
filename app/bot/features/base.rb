@@ -16,8 +16,9 @@ module Bot
 
       private
 
-      def feature(_, command, _)
+      def feature(event, command, filtered_arguments)
         initialize_action(command)
+        action.new(self, event, filtered_arguments).perform
       end
 
       def initialize_action(command)
