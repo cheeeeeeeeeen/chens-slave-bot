@@ -3,17 +3,15 @@ module Bot
     class Ping < Bot::Features::Base
       private
 
-      def action
-        @bot.command :ping do |event, n|
-          event.respond(process_reply(n))
-        rescue Discordrb::Errors::MessageTooLong
-          event.respond('Bruh. I can\'t type that long.')
-        end
+      def feature(event, num, _)
+        event.respond(process_reply(num))
       end
 
       def process_reply(num)
         if num.to_i <= 1
           'Pong!'
+        elsif num.to_i >= 100
+          "Bruh. I can't type that long."
         else
           multi_pong(num)
         end

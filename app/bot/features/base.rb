@@ -16,7 +16,7 @@ module Bot
 
       private
 
-      def feature(command)
+      def feature(_, command, _)
         initialize_action(command)
       end
 
