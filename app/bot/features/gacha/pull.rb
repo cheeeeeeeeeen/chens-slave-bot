@@ -14,7 +14,7 @@ module Bot
               embed.description = output_text
             end
           else
-            event.respond('This Gacha is not yet ready' \
+            event.respond('This Gacha is not yet ready ' \
                           'for your greedy needs.')
           end
         end
