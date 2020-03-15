@@ -13,6 +13,8 @@ module Bot
         def perform
           event.respond('This action in the Gacha module is not yet supported.')
         end
+
+        def self.description(_, _); end
       end
     end
   end

@@ -21,6 +21,24 @@ module Bot
           data
         end
 
+        def self.description(embed, prefix)
+          embed.add_field(
+            name: '**Display All Gachas**  `all`',
+            value: "Displays all the Gacha sets this server has created.\n" \
+              "The format displayed is in:\n`<Gacha Name> (<Gacha Command>)`"
+          )
+          embed.add_field(
+            name: 'Usage',
+            value: "`#{prefix}gacha all`"
+          )
+          embed.add_field(
+            name: 'Example',
+            value: "`#{prefix}gacha all`\nI will return the " \
+              "list of gacha sets this server has.\n" \
+              '\_\_\_\_\_\_\_\_\_\_\_\_'
+          )
+        end
+
         private
 
         def fetch_gachas

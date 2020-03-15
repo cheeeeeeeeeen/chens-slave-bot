@@ -5,14 +5,9 @@ module Bot
         attr_reader :gacha_json, :items_json, :output_text
 
         def perform
-          get_gacha_and_items
+          retrieve_gacha_and_items
           if gacha_valid?
-            build_data
-            pull_items
-            event.send_embed do |embed|
-              embed.author = embed_author
-              embed.description = output_text
-            end
+            prepare_data_and_execute
           else
             event.respond('This Gacha is not yet ready ' \
                           'for your greedy needs.')
@@ -39,7 +34,7 @@ module Bot
 
         private
 
-        def get_gacha_and_items
+        def retrieve_gacha_and_items
           @gacha_json = HTTParty.get(
             "#{gacha.request_link}/#{gacha.key_name}",
             body: {
@@ -70,14 +65,14 @@ module Bot
         end
 
         def pull_items
-          pull_number.times do |i|
+          pull_number.times do |_i|
             random = BigDecimal(rand(0...1.0).to_s)
             gacha_set.each do |name, chance|
-              if random < chance
-                pulled_set << name
-                @output_text += "\n**#{name}**"
-                break
-              end
+              next unless random < chance
+
+              pulled_set << name
+              @output_text += "\n**#{name}**"
+              break
             end
           end
           @output_text[0] = ''
@@ -88,6 +83,15 @@ module Bot
             name: "#{event.user.username}##{event.user.discord_tag}",
             icon_url: event.user.avatar_url
           )
+        end
+
+        def prepare_data_and_execute
+          build_data
+          pull_items
+          event.send_embed do |embed|
+            embed.author = embed_author
+            embed.description = output_text
+          end
         end
       end
     end

@@ -44,7 +44,7 @@ module Bot
 
         def gacha_readiness(total)
           @gacha_verdict = "#{total.to_f}% - "
-          @gacha_verdict += 
+          @gacha_verdict +=
             if total == BigDecimal('100.0')
               'Ready'
             else

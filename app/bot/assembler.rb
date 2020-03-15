@@ -14,7 +14,8 @@ module Bot
       @bot = Discordrb::Commands::CommandBot.new(
         token: token,
         client_id: client_id,
-        prefix: prefix_process
+        prefix: prefix_process,
+        help_command: false
       )
     end
 
@@ -24,6 +25,10 @@ module Bot
 
     def update_prefix_data(guild_id, new_prefix)
       prefix_data[guild_id.to_s] = new_prefix.to_s
+    end
+
+    def feature_list
+      @feature_list ||= []
     end
 
     def install(feature)

@@ -7,6 +7,15 @@ module Bot
         "#{Application.database_link}/items"
       end
 
+      def self.options
+        {
+          description: 'A command that allows adding or removing ' \
+            "Items in a Gacha set.\n" \
+            "Below is a list of actions this command can accept:\n" \
+            '`add`, `remove`'
+        }
+      end
+
       private
 
       def feature(event, command, arguments)

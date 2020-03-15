@@ -1,6 +1,14 @@
 module Bot
   module Features
     class Ping < Bot::Features::Base
+      def self.options
+        {
+          description: 'A command for testing if the bot is ' \
+            "responding to the server.\n" \
+            'It is also a valuable tool for my mistress to develop me.'
+        }
+      end
+
       private
 
       def feature(event, num, _)

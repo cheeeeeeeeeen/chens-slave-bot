@@ -7,6 +7,15 @@ module Bot
         "#{Application.database_link}/gachas"
       end
 
+      def self.options
+        {
+          description: 'A command which allows for Gacha data ' \
+            "management for this server.\n" \
+            "It accepts a set of actions listed below:\n" \
+            '`all`, `create`, `delete`, `peek`, `pull`'
+        }
+      end
+
       private
 
       def feature(event, command, arguments)
