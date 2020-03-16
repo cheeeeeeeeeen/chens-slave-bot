@@ -7,7 +7,7 @@ module Bot
         "#{Application.database_link}/items"
       end
 
-      def self.options
+      def self.options(_)
         {
           description: 'A command that allows adding or removing ' \
             "Items in a Gacha set.\n" \

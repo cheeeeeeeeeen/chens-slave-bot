@@ -3,7 +3,7 @@ module Bot
     class Prefix < Bot::Features::Base
       attr_reader :guild_id, :same_prefix
 
-      def self.options
+      def self.options(_)
         {
           description: 'A command for changing the command prefix ' \
             'for use of this server.' \

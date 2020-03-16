@@ -18,6 +18,35 @@ module Bot
           @name ||= Application.build_words(parameters[1...parameters.count])
         end
 
+        def self.description(embed, prefix)
+          embed.add_field(description_header)
+          embed.add_field(
+            name: 'Usage',
+            value: "`#{prefix}item add <gacha_command> <chance> <name>`"
+          )
+          embed.add_field(description_example(prefix))
+        end
+
+        def self.description_header
+          {
+            name: '`add`  **Add an Item to a Gacha set**',
+            value: "Create an item and add it to the specified Gacha set.\n" \
+              "An Item has a name and a chance percentage. The name is \n" \
+              'used for identifying the Item.'
+          }
+        end
+
+        def self.description_example(prefix)
+          {
+            name: 'Example',
+            value: "`#{prefix}item add sampleset 4.71 Chen is Life`\n" \
+              'Assume there exists a `sampleset` Gacha set. An Item called ' \
+              '"Chen is Life" will be added to `sampleset` with a chance ' \
+              "of 4.71% to be pulled.\n" \
+              '\_\_\_\_\_\_\_\_\_\_\_\_'
+          }
+        end
+
         private
 
         def create_item

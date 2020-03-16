@@ -16,6 +16,33 @@ module Bot
           end
         end
 
+        def self.description(embed, prefix)
+          embed.add_field(description_header)
+          embed.add_field(
+            name: 'Usage',
+            value: "`#{prefix}gacha peek <command>`"
+          )
+          embed.add_field(description_example(prefix))
+        end
+
+        def self.description_header
+          {
+            name: '`peek`  **Look at the contents of a Gacha set**',
+            value: 'Display the details of the set along with the ' \
+              'Item list packed within it.'
+          }
+        end
+
+        def self.description_example(prefix)
+          {
+            name: 'Example',
+            value: "`#{prefix}gacha peek chen`\n" \
+              'This will display the details of the gacha set with ' \
+              "the command `chen` together with the Items.\n" \
+              '\_\_\_\_\_\_\_\_\_\_\_\_'
+          }
+        end
+
         private
 
         def show_gacha

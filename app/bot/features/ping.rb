@@ -1,7 +1,7 @@
 module Bot
   module Features
     class Ping < Bot::Features::Base
-      def self.options
+      def self.options(_)
         {
           description: 'A command for testing if the bot is ' \
             "responding to the server.\n" \

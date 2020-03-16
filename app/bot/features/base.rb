@@ -9,14 +9,13 @@ module Bot
       end
 
       def insert
-        bot.command(bare_feature_name,
-                    self.class.options) do |event, command, *arguments|
+        bot.command bare_feature_name do |event, command, *arguments|
           feature(event, command, arguments)
         end
         assembler.feature_list << bare_class_name
       end
 
-      def self.options
+      def self.options(_)
         {
           description: '*No description specified...*'
         }

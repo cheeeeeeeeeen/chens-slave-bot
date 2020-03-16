@@ -15,22 +15,31 @@ module Bot
         end
 
         def self.description(embed, prefix)
-          embed.add_field(
-            name: '**Create a Gacha set**  `create`',
-            value: "Define and make a new Gacha set in this server.\n" \
-              'A Gacha set has a name and a command. The command will be ' \
-              'used for identifying the set for other modules and actions.'
-          )
+          embed.add_field(description_header)
           embed.add_field(
             name: 'Usage',
             value: "`#{prefix}gacha create <command> <name>`"
           )
-          embed.add_field(
+          embed.add_field(description_example(prefix))
+        end
+
+        def self.description_header
+          {
+            name: '`create`  **Create a Gacha set**',
+            value: "Define and make a new Gacha set in this server.\n" \
+              'A Gacha set has a name and a command. The command will be ' \
+              'used for identifying the set for other modules and actions.'
+          }
+        end
+
+        def self.description_example(prefix)
+          {
             name: 'Example',
             value: "`#{prefix}gacha create chen Chen is Love`\n" \
               'This will create a "Chen is Love" Gacha set with a command ' \
-              'of `chen`.'
-          )
+              "of `chen`.\n" \
+              '\_\_\_\_\_\_\_\_\_\_\_\_'
+          }
         end
 
         private

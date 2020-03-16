@@ -37,23 +37,21 @@ module Bot
         def commands_display(embed)
           assembler.feature_list.sort.each do |feature_name|
             embed.add_field(
-              name: "**#{feature_name}**  `#{feature_name.downcase}`",
+              name: "`#{feature_name.downcase}`  **#{feature_name}**",
               value: Application.feature_class(feature_name)
-                                .options[:description]
+                                .options(prefix)[:description]
             )
           end
         end
 
         def reply_message
           [
-            'Need help? I got your back.',
+            'Need help? I got your back.', 'What is your feeble request?',
             'Displaying the module commands I can run...',
-            "I'm here.",
-            'Teri~ Teri~',
+            "I'm here.", 'Teri~ Teri~', 'Slave of Chen, at your service.',
             'Fear not, my friend, for I am here to help.',
-            'Slave of Chen, at your service.',
-            'What is your feeble request?',
-            'Do not worry. We were all idiots at one point.'
+            'Do not worry. We were all idiots at one point.',
+            '大丈夫ですか。', 'Have I seen you somewhere before?'
           ].sample
         end
 

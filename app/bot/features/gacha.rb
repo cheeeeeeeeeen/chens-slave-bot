@@ -7,7 +7,7 @@ module Bot
         "#{Application.database_link}/gachas"
       end
 
-      def self.options
+      def self.options(_)
         {
           description: 'A command which allows for Gacha data ' \
             "management for this server.\n" \

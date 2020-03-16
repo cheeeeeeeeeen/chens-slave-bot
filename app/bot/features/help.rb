@@ -1,11 +1,11 @@
 module Bot
   module Features
     class Help < Bot::Features::Base
-      def self.options
+      def self.options(prefix)
         {
           description: 'A command for seeking help. It can accept an ' \
             'action argument that is a listed module in this help ' \
-            'message.'
+            "message.\ne.g. `#{prefix}help gacha`"
         }
       end
 

@@ -22,21 +22,29 @@ module Bot
         end
 
         def self.description(embed, prefix)
-          embed.add_field(
-            name: '**Display All Gachas**  `all`',
-            value: "Displays all the Gacha sets this server has created.\n" \
-              "The format displayed is in:\n`<Gacha Name> (<Gacha Command>)`"
-          )
+          embed.add_field(description_header)
           embed.add_field(
             name: 'Usage',
             value: "`#{prefix}gacha all`"
           )
-          embed.add_field(
+          embed.add_field(description_example(prefix))
+        end
+
+        def self.description_header
+          {
+            name: '`all`  **Display All Gachas**',
+            value: "Displays all the Gacha sets this server has created.\n" \
+              "The format displayed is in:\n`<Gacha Name> (<Gacha Command>)`"
+          }
+        end
+
+        def self.description_example(prefix)
+          {
             name: 'Example',
-            value: "`#{prefix}gacha all`\nI will return the " \
+            value: "`#{prefix}gacha all`\nThis will display the " \
               "list of gacha sets this server has.\n" \
               '\_\_\_\_\_\_\_\_\_\_\_\_'
-          )
+          }
         end
 
         private

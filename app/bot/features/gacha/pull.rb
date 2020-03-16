@@ -32,6 +32,33 @@ module Bot
           end
         end
 
+        def self.description(embed, prefix)
+          embed.add_field(description_header)
+          embed.add_field(
+            name: 'Usage',
+            value: "`#{prefix}gacha pull <command> [number]`"
+          )
+          embed.add_field(description_example(prefix))
+        end
+
+        def self.description_header
+          {
+            name: '`pull`  **Simulate a pull on a Gacha set**',
+            value: 'Display the details of the set along with the ' \
+              'Item list packed within it.'
+          }
+        end
+
+        def self.description_example(prefix)
+          {
+            name: 'Example',
+            value: "`#{prefix}gacha pull chen 10`\n" \
+              'Perform a simulation of a Gacha pull 10 times. ' \
+              'The `number` argument is optional and will default to 1 ' \
+              'if none are specified.'
+          }
+        end
+
         private
 
         def retrieve_gacha_and_items
