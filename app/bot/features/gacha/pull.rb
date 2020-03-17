@@ -27,7 +27,7 @@ module Bot
             if parameters.nil? || parameters.empty?
               1
             else
-              [[parameters[0].to_i, 10].min, 1].max
+              [[parameters[0].to_i, 20].min, 1].max
             end
           end
         end

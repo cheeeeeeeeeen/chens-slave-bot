@@ -3,8 +3,11 @@ module Bot
     class Gacha
       class Delete < Bot::Features::Gacha::Base
         def perform
-          destroy_gacha
-          event.respond('Deleted that worthless scam!')
+          if destroy_gacha
+            event.respond('Deleted that worthless scam!')
+          else
+            event.respond('There is no such Gacha set. No scam detected.')
+          end
         end
 
         def self.description(embed, prefix)
@@ -37,12 +40,13 @@ module Bot
         private
 
         def destroy_gacha
-          HTTParty.delete(
+          response = HTTParty.delete(
             "#{gacha.request_link}/#{gacha.key_name}",
             body: {
               guild_id: gacha.guild.id
             }
           )
+          response['gacha'] == 'destroyed'
         end
       end
     end
