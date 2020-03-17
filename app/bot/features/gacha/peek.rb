@@ -5,14 +5,11 @@ module Bot
         attr_reader :gacha_json, :items_json, :gacha_verdict, :all_items_string
 
         def perform
-          show_gacha
-          build_output
-          event.send_embed do |embed|
-            embed.add_field(name: '**Gacha Name**', value: gacha_json['name'])
-            embed.add_field(name: '**Gacha Command**',
-                            value: gacha_json['key_name'])
-            embed.add_field(name: "**Items** (#{gacha_verdict})",
-                            value: all_items_string)
+          if show_gacha
+            build_output
+            display_output
+          else
+            event.respond('There is no such Gacha set found in my brain.')
           end
         end
 
@@ -54,6 +51,7 @@ module Bot
           )
           @items_json = @gacha_json['items']
           @gacha_json = @gacha_json['gacha']
+          !@gacha_json.nil?
         end
 
         def build_output
@@ -77,6 +75,16 @@ module Bot
             else
               'Not yet ready'
             end
+        end
+
+        def display_output
+          event.send_embed do |embed|
+            embed.add_field(name: '**Gacha Name**', value: gacha_json['name'])
+            embed.add_field(name: '**Gacha Command**',
+                            value: gacha_json['key_name'])
+            embed.add_field(name: "**Items** (#{gacha_verdict})",
+                            value: all_items_string)
+          end
         end
       end
     end

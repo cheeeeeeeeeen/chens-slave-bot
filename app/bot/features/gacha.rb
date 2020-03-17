@@ -1,7 +1,7 @@
 module Bot
   module Features
     class Gacha < Bot::Features::Base
-      attr_reader :guild, :key_name, :name
+      attr_reader :guild, :key_name
 
       def request_link
         "#{Application.database_link}/gachas"
