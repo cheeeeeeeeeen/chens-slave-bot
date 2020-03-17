@@ -6,7 +6,7 @@ module Bot
           event.send_embed(
             reply_message
           ) do |embed|
-            embed.title = "`#{prefix}ping`  Prefix Module"
+            embed.title = "`#{prefix}prefix`  Prefix Module"
             details(embed)
           end
         end
