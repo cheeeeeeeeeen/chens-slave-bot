@@ -5,12 +5,16 @@ module Bot
         attr_reader :gacha_json, :items_json, :output_text
 
         def perform
-          retrieve_gacha_and_items
-          if gacha_valid?
-            prepare_data_and_execute
+          if retrieve_gacha_and_items
+            if gacha_valid?
+              prepare_data_and_execute
+            else
+              event.respond('This Gacha is not yet ready ' \
+                            'for your greedy needs.')
+            end
           else
-            event.respond('This Gacha is not yet ready ' \
-                          'for your greedy needs.')
+            event.respond('There is no such Gacha set. ' \
+                          'Perhaps you misspelled it?')
           end
         end
 
@@ -70,6 +74,7 @@ module Bot
           )
           @items_json = @gacha_json['items']
           @gacha_json = @gacha_json['gacha']
+          !@gacha_json.nil?
         end
 
         def gacha_valid?
