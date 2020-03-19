@@ -3,10 +3,10 @@ module Bot
     class Gacha
       class Create < Bot::Features::Gacha::Base
         def perform
-          create_gacha
-          event.send_embed do |embed|
-            embed.description =
-              "Successfully created Gacha for #{gacha.guild.name}!"
+          if create_gacha
+            success_response
+          else
+            fail_response
           end
         end
 
@@ -45,7 +45,7 @@ module Bot
         private
 
         def create_gacha
-          HTTParty.post(
+          response = HTTParty.post(
             gacha.request_link,
             body: {
               guild_id: gacha.guild.id,
@@ -53,6 +53,20 @@ module Bot
               name: name
             }
           )
+          response['gacha'] != 'error'
+        end
+
+        def fail_response
+          event.respond('Failed to create the Gacha. Make sure the Name ' \
+                        'or the Command is not taken by another set, ' \
+                        'or is not blank.')
+        end
+
+        def success_response
+          event.send_embed do |embed|
+            embed.description =
+              "Successfully created Gacha for #{gacha.guild.name}!"
+          end
         end
       end
     end

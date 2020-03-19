@@ -1,10 +1,14 @@
 module Bot
   module Features
     class Item < Bot::Features::Base
-      attr_reader :guild, :gacha_json
+      attr_reader :guild
 
       def request_link
         "#{Application.database_link}/items"
+      end
+
+      def gacha_json
+        @gacha_json ||= {}
       end
 
       def self.options(_)
@@ -26,9 +30,10 @@ module Bot
 
       def build_gacha(key_name)
         @gacha_json = HTTParty.get(
-          "#{Application.database_link}/gachas/#{key_name}",
+          "#{Application.database_link}/gachas/show",
           body: {
-            guild_id: guild.id
+            guild_id: guild.id,
+            key_name: key_name
           }
         )
         @gacha_json = @gacha_json['gacha']

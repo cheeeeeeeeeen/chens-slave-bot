@@ -41,9 +41,10 @@ module Bot
 
         def destroy_gacha
           response = HTTParty.delete(
-            "#{gacha.request_link}/#{gacha.key_name}",
+            gacha.request_link,
             body: {
-              guild_id: gacha.guild.id
+              guild_id: gacha.guild.id,
+              key_name: gacha.key_name
             }
           )
           response['gacha'] == 'destroyed'

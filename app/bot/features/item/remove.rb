@@ -3,8 +3,12 @@ module Bot
     class Item
       class Remove < Bot::Features::Item::Base
         def perform
-          destroy_item
-          event.respond("Removed the item from #{item.gacha_json['name']}.")
+          if destroy_item
+            event.respond("Removed the item from #{item.gacha_json['name']}.")
+          else
+            event.respond('That gacha set and/or item does not exist. ' \
+                          'Check your spelling?')
+          end
         end
 
         def name
@@ -36,7 +40,7 @@ module Bot
         private
 
         def destroy_item
-          HTTParty.delete(
+          response = HTTParty.delete(
             item.request_link,
             body: {
               guild_id: item.guild.id,
@@ -44,6 +48,7 @@ module Bot
               name: name
             }
           )
+          response['item'] == 'destroyed'
         end
       end
     end

@@ -11,6 +11,7 @@ module Bot
       def insert
         bot.command bare_feature_name do |event, command, *arguments|
           feature(event, command, arguments)
+          nil
         end
         assembler.feature_list << bare_class_name
       end

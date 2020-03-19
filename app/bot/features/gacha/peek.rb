@@ -2,12 +2,21 @@ module Bot
   module Features
     class Gacha
       class Peek < Bot::Features::Gacha::Base
-        attr_reader :gacha_json, :items_json, :gacha_verdict, :all_items_string
+        attr_reader :gacha_json, :items_json, :gacha_verdict,
+                    :total_chance, :all_items_string
+
+        def initialize(gacha, event, parameters)
+          super(gacha, event, parameters)
+          @total_chance = BigDecimal('0')
+          @all_items_string = ['']
+        end
 
         def perform
           if show_gacha
             build_output
-            display_output
+            gacha_readiness
+            display_details
+            display_items
           else
             event.respond('There is no such Gacha set found in my brain.')
           end
@@ -44,9 +53,10 @@ module Bot
 
         def show_gacha
           @gacha_json = HTTParty.get(
-            "#{gacha.request_link}/#{gacha.key_name}",
+            "#{gacha.request_link}/show",
             body: {
-              guild_id: gacha.guild.id
+              guild_id: gacha.guild.id,
+              key_name: gacha.key_name
             }
           )
           @items_json = @gacha_json['items']
@@ -54,37 +64,56 @@ module Bot
           !@gacha_json.nil?
         end
 
-        def build_output
-          output = ''
-          total = BigDecimal('0')
-          items_json.each do |item|
-            output += "\n#{item['name']} - #{BigDecimal(item['chance']).to_f}%"
-            total += BigDecimal(item['chance'])
-          end
-          output[0] = ''
-          @all_items_string = output
-          @all_items_string = '*No items yet.*' if @all_items_string == ''
-          gacha_readiness(total)
+        def latest_index
+          all_items_string.count - 1
         end
 
-        def gacha_readiness(total)
-          @gacha_verdict = "#{total.to_f}% - "
+        def build_output
+          items_json.each do |item|
+            str_to_add = "\n#{item['chance'].to_f}% - #{item['name']}"
+            add_string_node(str_to_add)
+            all_items_string[latest_index] += str_to_add
+            @total_chance += BigDecimal(item['chance'])
+          end
+        end
+
+        def compute_length(added_string)
+          (all_items_string[latest_index] + added_string).length > 2000
+        end
+
+        def gacha_readiness
+          all_items_string[0] = '*No items yet.*' if all_items_string[0].empty?
+          @gacha_verdict = "#{total_chance.to_f}% - "
           @gacha_verdict +=
-            if total == BigDecimal('100.0')
+            if total_chance == BigDecimal('100.0')
               'Ready'
             else
               'Not yet ready'
             end
         end
 
-        def display_output
+        def display_details
           event.send_embed do |embed|
             embed.add_field(name: '**Gacha Name**', value: gacha_json['name'])
             embed.add_field(name: '**Gacha Command**',
                             value: gacha_json['key_name'])
-            embed.add_field(name: "**Items** (#{gacha_verdict})",
-                            value: all_items_string)
+            embed.add_field(name: '**Items**', value: gacha_verdict)
           end
+        end
+
+        def display_items
+          all_items_string.each do |item_string|
+            event.send_embed do |embed|
+              embed.description = item_string
+            end
+          end
+        end
+
+        def add_string_node(str)
+          return unless compute_length(str)
+
+          all_items_string[latest_index][0] = ''
+          all_items_string << ''
         end
       end
     end

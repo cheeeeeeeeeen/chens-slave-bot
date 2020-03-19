@@ -3,10 +3,13 @@ module Bot
     class Item
       class Add < Bot::Features::Item::Base
         def perform
-          create_item
-          event.send_embed do |embed|
-            embed.description =
-              "Successfully created Item in #{item.gacha_json['name']}!"
+          if create_item
+            event.send_embed do |embed|
+              embed.description =
+                "Successfully created Item in #{item.gacha_json['name']}!"
+            end
+          else
+            failure_response
           end
         end
 
@@ -50,7 +53,7 @@ module Bot
         private
 
         def create_item
-          HTTParty.post(
+          response = HTTParty.post(
             item.request_link,
             body: {
               guild_id: item.guild.id,
@@ -59,6 +62,14 @@ module Bot
               chance: chance
             }
           )
+          response['item'] != 'error'
+        end
+
+        def failure_response
+          event.respond('Failure to create Item. Make sure the Gacha ' \
+                        'Command exists, or the Item Chance and ' \
+                        'Name are not blank. Remember that the Chance ' \
+                        'must be a number.')
         end
       end
     end

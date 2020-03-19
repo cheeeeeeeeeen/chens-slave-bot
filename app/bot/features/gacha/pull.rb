@@ -9,12 +9,10 @@ module Bot
             if gacha_valid?
               prepare_data_and_execute
             else
-              event.respond('This Gacha is not yet ready ' \
-                            'for your greedy needs.')
+              invalid_response
             end
           else
-            event.respond('There is no such Gacha set. ' \
-                          'Perhaps you misspelled it?')
+            nonexistent_reponse
           end
         end
 
@@ -67,9 +65,10 @@ module Bot
 
         def retrieve_gacha_and_items
           @gacha_json = HTTParty.get(
-            "#{gacha.request_link}/#{gacha.key_name}",
+            "#{gacha.request_link}/show",
             body: {
-              guild_id: gacha.guild.id
+              guild_id: gacha.guild.id,
+              key_name: gacha.key_name
             }
           )
           @items_json = @gacha_json['items']
@@ -124,6 +123,16 @@ module Bot
             embed.author = embed_author
             embed.description = output_text
           end
+        end
+
+        def invalid_response
+          event.respond('This Gacha is not yet ready ' \
+                        'for your greedy needs.')
+        end
+
+        def nonexistent_reponse
+          event.respond('There is no such Gacha set. ' \
+                        'Perhaps you misspelled it?')
         end
       end
     end
