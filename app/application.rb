@@ -28,7 +28,7 @@ module Application
   end
 
   def database_link
-    'http://localhost:3000/api/v1'
+    ENV['DATABASE_LINK'] || 'http://localhost:3000/api/v1'
   end
 
   def feature_class(feature_name)
