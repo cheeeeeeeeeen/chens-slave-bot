@@ -8,15 +8,9 @@ gem 'discordrb-webhooks', require: 'discordrb/webhooks'
 gem 'dotenv', require: false
 gem 'httparty'
 
-group :development, :test do
+group :development do
   gem 'awesome_print', require: false
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
-  gem 'rspec'
   gem 'rubocop'
 end
-
-# group :test do
-#   gem 'simplecov', require: false
-# end
