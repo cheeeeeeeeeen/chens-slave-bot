@@ -9,5 +9,6 @@ assembler.install('Ping')
 assembler.install('Prefix')
 assembler.install('Gacha')
 assembler.install('Item')
+assembler.install('Permission')
 
 assembler.deploy

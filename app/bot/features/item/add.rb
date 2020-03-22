@@ -18,7 +18,7 @@ module Bot
         end
 
         def name
-          @name ||= Application.build_words(parameters[1...parameters.count])
+          @name ||= Application.build_words(parameters[1..-1])
         end
 
         def self.description(embed, prefix)

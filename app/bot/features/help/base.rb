@@ -21,7 +21,7 @@ module Bot
         end
 
         def prefix
-          @prefix ||= assembler.prefix_data[guild.id.to_s]
+          @prefix ||= assembler.fetch_prefix(guild.id.to_s)
         end
 
         def guild

@@ -12,7 +12,7 @@ module Bot
         end
 
         def name
-          @name ||= Application.build_words(parameters[0...parameters.count])
+          @name ||= Application.build_words(parameters[0..-1])
         end
 
         def self.description(embed, prefix)

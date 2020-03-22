@@ -12,6 +12,9 @@ module Bot
       private
 
       def feature(event, num, _)
+        initialize_permissions(event.server.id, nil)
+        return nil unless permitted_by_role?(event.user)
+
         event.respond(process_reply(num))
       end
 

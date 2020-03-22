@@ -21,7 +21,7 @@ module Bot
       def feature(event, command, arguments)
         @guild = event.server
         @key_name = arguments[0]
-        super(event, command, arguments[1...arguments.count])
+        super(event, command, arguments[1..-1])
       end
     end
   end
