@@ -15,7 +15,7 @@ module Bot
           event.send_embed(
             reply_message
           ) do |embed|
-            embed.title = "General Module Commands  `#{prefix}`"
+            embed.title = "`#{prefix}`  General Module Commands"
             commands_display(embed)
           end
         end
@@ -44,6 +44,17 @@ module Bot
           end
         end
 
+        def permission_display(embed, action = nil, hr = false)
+          embed.add_field(
+            name: '*Permissions*',
+            value: "*#{get_permissions(action)}*#{horizontal_rule if hr}"
+          )
+        end
+
+        def horizontal_rule
+          "\n" + '\_\_\_\_\_\_\_\_\_\_\_\_'
+        end
+
         def reply_message
           [
             'Need help? I got your back.', 'What is your feeble request?',
@@ -61,6 +72,15 @@ module Bot
             require_relative "../#{command}/#{action_name}"
             action_list << action_name unless action_name == 'base'
           end
+        end
+
+        def get_permissions(action = nil)
+          response = HTTParty.get(
+            "#{Application.database_link}/permissions/show",
+            body: { guild_id: guild.id, action_name: action,
+                    feature_name: command }
+          )
+          return response['key_names']&.gsub(',', ', ') || 'None'
         end
       end
     end

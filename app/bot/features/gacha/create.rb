@@ -37,8 +37,7 @@ module Bot
             name: 'Example',
             value: "`#{prefix}gacha create chen Chen is Love`\n" \
               'This will create a "Chen is Love" Gacha set with a command ' \
-              "of `chen`.\n" \
-              '\_\_\_\_\_\_\_\_\_\_\_\_'
+              'of `chen`.'
           }
         end
 

@@ -10,7 +10,6 @@ module Bot
     end
 
     def create_bot
-      # fetch_server_prefixes
       @bot = Discordrb::Commands::CommandBot.new(
         token: token,
         client_id: client_id,
@@ -18,14 +17,6 @@ module Bot
         help_command: false
       )
     end
-
-    # def prefix_data
-    #   @prefix_data ||= {}
-    # end
-
-    # def update_prefix_data(guild_id, new_prefix)
-    #   prefix_data[guild_id.to_s] = new_prefix.to_s
-    # end
 
     def feature_list
       @feature_list ||= []
@@ -43,16 +34,6 @@ module Bot
       end
     end
 
-    # def permission_data
-    #   @permission_data ||= {}
-    # end
-
-    # def update_permission_data(guild_id, feature, action, permissions)
-    #   guild_hash = permission_data[guild_id.to_s]
-    #   guild_hash[feature] = {} if guild_hash[feature].nil?
-    #   guild_hash[feature][action] = permissions.map(&:to_sym)
-    # end
-
     def install(feature)
       Application.feature_class(feature).new(@bot, self).insert
     end
@@ -62,32 +43,6 @@ module Bot
     end
 
     private
-
-    # def fetch_server_prefixes
-    #   response = HTTParty.get("#{Application.database_link}/guilds")
-    #   response['guilds'].each do |guild|
-    #     update_prefix_data(guild['discord_id'], guild['command_prefix'])
-    #   end
-    # end
-
-    # def fetch_server_permissions
-    #   response = request_permissions
-    #   response['permissions'].each do |permission|
-    #     update_permission_data(
-    #       permission['guild_discord_id'],
-    #       permission['feature_name'],
-    #       permission['action_name'],
-    #       permission['key_names'].split(',')
-    #     )
-    #   end
-    # end
-
-    # def request_permissions
-    #   HTTParty.get(
-    #     "#{Application.database_link}/permissions",
-    #     body: { id: 'all' }
-    #   )
-    # end
 
     def prefix_process
       proc do |msg|

@@ -8,6 +8,7 @@ module Bot
           ) do |embed|
             embed.title = "`#{prefix}prefix`  Prefix Module"
             details(embed)
+            permission_display(embed)
           end
         end
 

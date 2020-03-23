@@ -44,8 +44,7 @@ module Bot
             name: 'Example',
             value: "`#{prefix}gacha peek chen`\n" \
               'This will display the details of the gacha set with ' \
-              "the command `chen` together with the Items.\n" \
-              '\_\_\_\_\_\_\_\_\_\_\_\_'
+              'the command `chen` together with the Items.'
           }
         end
 

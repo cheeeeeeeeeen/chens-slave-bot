@@ -25,8 +25,7 @@ module Bot
       private
 
       def feature(event, command, filtered_arguments)
-        initialize_permissions(event.server.id, command)
-        return nil unless permitted_by_role?(event.user)
+        return unless authorized?(event, command)
 
         initialize_action(command)
         action.new(self, event, filtered_arguments).perform
@@ -64,6 +63,14 @@ module Bot
           break if result
         end
         result
+      end
+
+      def authorized?(event, command = nil)
+        initialize_permissions(event.server.id, command)
+        return true if permitted_by_role?(event.user)
+
+        event.respond('You are unauthorized to use this command.')
+        false
       end
     end
   end

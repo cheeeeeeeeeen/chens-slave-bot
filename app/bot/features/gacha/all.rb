@@ -42,8 +42,7 @@ module Bot
           {
             name: 'Example',
             value: "`#{prefix}gacha all`\nThis will display the " \
-              "list of gacha sets this server has.\n" \
-              '\_\_\_\_\_\_\_\_\_\_\_\_'
+              'list of gacha sets this server has.'
           }
         end
 

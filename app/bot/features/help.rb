@@ -12,8 +12,8 @@ module Bot
       private
 
       def feature(event, command, arguments)
-        return nil if !command.nil? &&
-                      !assembler.feature_list.include?(command.capitalize)
+        return if !command.nil? &&
+                  !assembler.feature_list.include?(command.capitalize)
 
         initialize_action(command)
         action.new(event, command, arguments, assembler).perform

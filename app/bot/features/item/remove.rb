@@ -33,7 +33,7 @@ module Bot
             value: "`#{prefix}item remove sampleset Chen is Life`\n" \
               'Assume there exists a `sampleset` Gacha set and an Item ' \
               'called "Chen is Life" is in the same set. "Chen is Life" ' \
-              "will be removed from the Gacha set.\n"
+              'will be removed from the Gacha set.'
           }
         end
 

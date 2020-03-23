@@ -32,8 +32,7 @@ module Bot
             name: 'Example',
             value: "`#{prefix}gacha delete chen`\n" \
               'This will the Gacha set with the command ' \
-              "of `chen`.\n" \
-              '\_\_\_\_\_\_\_\_\_\_\_\_'
+              'of `chen`.'
           }
         end
 

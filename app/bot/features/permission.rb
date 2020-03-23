@@ -21,7 +21,7 @@ module Bot
         {
           description: 'A command for setting permissions for each ' \
             'module. If a module accepts an action argument, then ' \
-            'one can set the permissions per action. Take note that ' \
+            "one can set the permissions per action.\nTake note that " \
             'the permission module does not set permission levels ' \
             "of users or channels.\nFor more information, type " \
             "`#{prefix}help permission`"
@@ -30,8 +30,10 @@ module Bot
 
       private
 
+      def initialize_permissions(_, _); end
+
       def feature(event, affected_feature, arguments)
-        return nil unless permitted_by_role?(event.user)
+        return unless authorized?(event)
 
         assign_variables(event.server, affected_feature, arguments)
         save_permission_in_database
@@ -40,12 +42,12 @@ module Bot
 
       def assign_variables(server, feature, arguments)
         @guild = server
-        @affected_feature = feature
-        byebug
+        @affected_feature = validate_feature(feature)
         if contains_actions?
           @action = arguments[0]
           @permissions = arguments[1..-1]
         else
+          @action = nil
           @permissions = arguments
         end
       end
@@ -71,8 +73,8 @@ module Bot
         if saved
           event.respond('Permissions are saved.')
         else
-          event.respond('Your command looks abnormal. Check the ' \
-                        'manual for proper guidance. Sheesh.')
+          event.respond('Your command looks abnormal. Use `.help ' \
+                        'permission` for proper guidance.')
         end
       end
 
@@ -83,6 +85,12 @@ module Bot
           break if result
         end
         result
+      end
+
+      def validate_feature(feature)
+        return feature if assembler.feature_list.include?(feature.capitalize)
+
+        nil
       end
     end
   end

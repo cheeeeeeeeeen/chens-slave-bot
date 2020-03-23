@@ -13,8 +13,7 @@ module Bot
       private
 
       def feature(event, new_prefix, _)
-        initialize_permissions(event.server.id, nil)
-        return nil unless permitted_by_role?(event.user)
+        return unless authorized?(event)
 
         fetch_guild(event)
         process(new_prefix)
@@ -35,7 +34,6 @@ module Bot
             command_prefix: prefix
           }
         )
-        # @assembler.update_prefix_data(guild_id, prefix)
       end
 
       def same_prefix?(prefix)
