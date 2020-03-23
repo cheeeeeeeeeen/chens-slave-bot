@@ -44,10 +44,10 @@ module Bot
           end
         end
 
-        def permission_display(embed, action = nil, hr = false)
+        def permission_display(embed, action = nil, add_hr = false)
           embed.add_field(
             name: '*Permissions*',
-            value: "*#{get_permissions(action)}*#{horizontal_rule if hr}"
+            value: "*#{get_permissions(action)}*#{horizontal_rule if add_hr}"
           )
         end
 
@@ -80,7 +80,7 @@ module Bot
             body: { guild_id: guild.id, action_name: action,
                     feature_name: command }
           )
-          return response['key_names']&.gsub(',', ', ') || 'None'
+          response['key_names']&.gsub(',', ', ') || 'None'
         end
       end
     end

@@ -18,7 +18,7 @@ module Bot
           action_list.sort.each do |action|
             Application.action_class('Bot::Features::Gacha', action)
                        .description(embed, prefix)
-            permission_display(embed, action, action != action_list.sort.last)
+            permission_display(embed, action, action != action_list.max)
           end
         end
 
