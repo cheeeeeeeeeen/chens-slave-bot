@@ -80,7 +80,9 @@ module Bot
             body: { guild_id: guild.id, action_name: action,
                     feature_name: command }
           )
-          response['key_names']&.gsub(',', ', ') || 'None'
+          response = response['key_names']&.gsub(',', ', ')
+          response = 'None' if response.nil? || response.empty?
+          response
         end
       end
     end
