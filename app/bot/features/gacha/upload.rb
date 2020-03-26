@@ -17,6 +17,7 @@ module Bot
             value: "`#{prefix}gacha upload`"
           )
           embed.add_field(description_example(prefix))
+          embed.add_field(file_format)
         end
 
         def self.description_header
@@ -34,6 +35,15 @@ module Bot
             value: "`#{prefix}gacha upload`\n" \
               'Given an attachment was specified, the bot will fetch the ' \
               'file and read it, then create the Gacha set and Items.'
+          }
+        end
+
+        def self.file_format
+          {
+            name: 'File Format',
+            value: "```\ngacha_command\nGacha Sample Name\n70 name of item " \
+              "with 70% chance to get\n20 Another Item\n5.5 item with a " \
+              "decimal percentage\n4.5 3rd line of file is the list of items```"
           }
         end
 
