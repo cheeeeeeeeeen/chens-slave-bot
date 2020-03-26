@@ -36,9 +36,9 @@ module Bot
             'One can assign multiple permission settings within a ' \
             "module.\nThe `permission` module is only limited to roles " \
             'with an `administrator` permission and cannot be changed. ' \
-            "The `help` module also cannot have permission settings.\n" \
-            '**__The permissions only apply to roles. Channel overwrites ' \
-            'are not yet supported.__**'
+            'The `help` and `invite` modules also cannot have permission ' \
+            "settings.\n**__The permissions only apply to roles. Channel " \
+            'overwrites are not yet supported.__**'
         end
 
         def usage_details(embed)
