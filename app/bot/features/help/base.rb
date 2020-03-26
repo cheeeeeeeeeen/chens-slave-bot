@@ -17,6 +17,7 @@ module Bot
           ) do |embed|
             embed.title = "`#{prefix}`  General Module Commands"
             commands_display(embed)
+            embed.footer = { text: 'Version 1.2.0.0' }
           end
         end
 
