@@ -1,7 +1,7 @@
 module Bot
   module Features
     class Permission < Bot::Features::Base
-      attr_reader :guild, :affected_feature, :action
+      attr_reader :guild, :affected_feature, :action, :prefix
 
       def saved
         @saved ||= false
@@ -42,6 +42,7 @@ module Bot
 
       def assign_variables(server, feature, arguments)
         @guild = server
+        @prefix = assembler.fetch_prefix(guild.id.to_s)
         @affected_feature = validate_feature(feature)
         if contains_actions?
           @action = arguments[0]
@@ -73,8 +74,8 @@ module Bot
         if saved
           event.respond('Permissions are saved.')
         else
-          event.respond('Your command looks abnormal. Use `.help ' \
-                        'permission` for proper guidance.')
+          event.respond("Your command looks abnormal. Use `#{prefix}help" \
+                        ' permission` for proper guidance.')
         end
       end
 
