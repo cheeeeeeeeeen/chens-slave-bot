@@ -34,6 +34,11 @@ module Bot
       end
     end
 
+    def server_version
+      response = HTTParty.get("#{Application.database_link}/details")
+      response['version']
+    end
+
     def install(feature)
       Application.feature_class(feature).new(@bot, self).insert
     end

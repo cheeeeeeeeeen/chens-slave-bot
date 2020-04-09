@@ -24,7 +24,7 @@ module Bot
             "one can set the permissions per action.\nTake note that " \
             'the permission module does not set permission levels ' \
             "of users or channels.\nFor more information, type " \
-            "`#{prefix}help permission`"
+            "`#{prefix}help permission`."
         }
       end
 

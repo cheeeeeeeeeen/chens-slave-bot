@@ -3,6 +3,10 @@ require 'dotenv/load'
 module Application
   module_function
 
+  def version
+    '1.2.2.1'
+  end
+
   def environment
     ENV['APP_ENVIRONMENT'] || 'development'
   end

@@ -5,7 +5,9 @@ module Bot
         {
           description: 'A command for seeking help. It can accept an ' \
             'action argument that is a listed module in this help ' \
-            "message.\ne.g. `#{prefix}help gacha`"
+            'message. One may also filter the actions by adding action ' \
+            "arguments.\ne.g.\n- `#{prefix}help permission`\n- " \
+            "`#{prefix}help gacha create upload`"
         }
       end
 

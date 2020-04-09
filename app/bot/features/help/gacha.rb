@@ -4,17 +4,32 @@ module Bot
       class Gacha < Bot::Features::Help::Base
         def perform
           require_files
-          embed_first_part
-          embed_second_part
+          if action_filter.count <= action_list_half
+            embed_all
+          else
+            embed_first_part
+            embed_second_part
+          end
+        end
+
+        def action_filter
+          @action_filter ||= begin
+            intersection = action_list & arguments
+            if intersection.empty?
+              action_list
+            else
+              intersection
+            end
+          end
         end
 
         private
 
         def commands_display(embed, range)
-          action_list.sort[range].each do |action|
+          action_filter.sort[range].each do |action|
             Application.action_class('Bot::Features::Gacha', action)
                        .description(embed, prefix)
-            permission_display(embed, action, action != action_list.max)
+            permission_display(embed, action, action != action_filter.max)
           end
         end
 
@@ -28,19 +43,36 @@ module Bot
           ].sample
         end
 
+        def embed_all
+          event.send_embed(
+            "Displaying only some of Gacha actions. #{reply_message}"
+          ) do |embed|
+            embed.title = "`#{prefix}gacha`  Gacha Actions"
+            commands_display(embed, 0..-1)
+          end
+        end
+
         def embed_first_part
           event.send_embed(
             "I am a bot for simulating Gacha pulls. #{reply_message}"
           ) do |embed|
             embed.title = "`#{prefix}gacha`  Gacha Actions"
-            commands_display(embed, 0...3)
+            commands_display(embed, 0...action_filter_half)
           end
         end
 
         def embed_second_part
           event.send_embed do |embed|
-            commands_display(embed, 3..-1)
+            commands_display(embed, action_filter_half..-1)
           end
+        end
+
+        def action_filter_half
+          @action_filter_half ||= action_filter.count / 2
+        end
+
+        def action_list_half
+          @action_list_half ||= action_list.count / 2
         end
       end
     end

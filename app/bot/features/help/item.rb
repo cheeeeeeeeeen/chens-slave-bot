@@ -12,13 +12,24 @@ module Bot
           end
         end
 
+        def action_filter
+          @action_filter ||= begin
+            intersection = action_list & arguments
+            if intersection.empty?
+              action_list
+            else
+              intersection
+            end
+          end
+        end
+
         private
 
         def commands_display(embed)
-          action_list.sort.each do |action|
+          action_filter.sort.each do |action|
             Application.action_class('Bot::Features::Item', action)
                        .description(embed, prefix)
-            permission_display(embed, action, action != action_list.max)
+            permission_display(embed, action, action != action_filter.max)
           end
         end
 

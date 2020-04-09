@@ -45,7 +45,7 @@ module Bot
             value: "`#{prefix}item add sampleset 4.71 Chen is Life`\n" \
               'Assume there exists a `sampleset` Gacha set. An Item called ' \
               '"Chen is Life" will be added to `sampleset` with a chance ' \
-              'of 4.71% to be pulled.\n'
+              'of 4.71% to be pulled.'
           }
         end
 

@@ -17,8 +17,12 @@ module Bot
           ) do |embed|
             embed.title = "`#{prefix}`  General Module Commands"
             commands_display(embed)
-            embed.footer = { text: 'Bot 1.2.1.0 : Server 1.2.0.1' }
+            embed.footer = { text: versions }
           end
+        end
+
+        def versions
+          "Bot #{Application.version} : Server #{assembler.server_version}"
         end
 
         def prefix

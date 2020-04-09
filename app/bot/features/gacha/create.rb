@@ -62,10 +62,7 @@ module Bot
         end
 
         def success_response
-          event.send_embed do |embed|
-            embed.description =
-              "Successfully created Gacha for #{gacha.guild.name}!"
-          end
+          event.respond("Successfully created Gacha for #{gacha.guild.name}!")
         end
       end
     end
