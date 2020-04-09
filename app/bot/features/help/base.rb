@@ -72,10 +72,13 @@ module Bot
         end
 
         def require_files
+          require_relative "../#{command}/base"
           Dir["./app/bot/features/#{command}/*.rb"].each do |f|
             action_name = f.split('/').last.split('.').first
-            require_relative "../#{command}/#{action_name}"
-            action_list << action_name unless action_name == 'base'
+            if action_name != 'base'
+              require_relative "../#{command}/#{action_name}"
+              action_list << action_name
+            end
           end
         end
 
