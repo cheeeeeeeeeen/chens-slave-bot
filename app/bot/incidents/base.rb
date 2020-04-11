@@ -9,7 +9,7 @@ module Bot
       end
 
       def insert
-        bot.message(attributes) do |event_obj|
+        bot.send(listener_type, attributes) do |event_obj|
           @event = event_obj
           action if condition
         end
@@ -24,6 +24,10 @@ module Bot
       end
 
       private
+
+      def listener_type
+        'message'
+      end
 
       def action; end
     end

@@ -13,6 +13,7 @@ assembler.install('Ping')
 assembler.install('Prefix')
 assembler.install('Puppet', false)
 
+assembler.listen('NotifyOnMention')
 assembler.listen('RelayAllDirectMessages')
 
 assembler.deploy
