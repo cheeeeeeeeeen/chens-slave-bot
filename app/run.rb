@@ -11,5 +11,8 @@ assembler.install('Item')
 assembler.install('Permission')
 assembler.install('Ping')
 assembler.install('Prefix')
+assembler.install('Puppet', false)
+
+assembler.listen('RelayAllDirectMessages')
 
 assembler.deploy

@@ -4,7 +4,7 @@ module Application
   module_function
 
   def version
-    '1.2.2.2'
+    '1.3.0.0'
   end
 
   def environment
@@ -43,6 +43,11 @@ module Application
   def action_class(feature, action)
     require_relative "#{file_name(feature)}/#{file_name(action)}"
     Object.const_get("#{feature}::#{action.capitalize}")
+  end
+
+  def incident_class(incident_name)
+    require_relative "bot/incidents/#{file_name(incident_name)}"
+    Object.const_get("Bot::Incidents::#{incident_name}")
   end
 
   def file_name(class_name)

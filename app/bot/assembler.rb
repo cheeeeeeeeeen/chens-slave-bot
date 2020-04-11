@@ -1,11 +1,13 @@
 require_relative 'features/base'
+require_relative 'incidents/base'
 
 module Bot
   class Assembler
-    attr_reader :bot, :token, :client_id
+    attr_reader :bot, :token, :client_id, :header_token
 
     def initialize(key: nil, client_id: nil)
       @token = key || ENV['SECRET_BOT_TOKEN']
+      @header_token = "Bot #{@token}"
       @client_id = client_id || ENV['DISCORD_APP_CLIENT_ID']
     end
 
@@ -39,8 +41,12 @@ module Bot
       response['version']
     end
 
-    def install(feature)
-      Application.feature_class(feature).new(@bot, self).insert
+    def install(feature, is_public = true)
+      Application.feature_class(feature).new(self).insert(is_public)
+    end
+
+    def listen(incident)
+      Application.incident_class(incident).new(self).insert
     end
 
     def deploy
@@ -51,7 +57,7 @@ module Bot
 
     def prefix_process
       proc do |msg|
-        prefix = fetch_prefix(msg.channel.server.id)
+        prefix = fetch_prefix(msg.channel.server&.id)
         msg.content[prefix.size..-1] if msg.content.start_with?(prefix)
       end
     end

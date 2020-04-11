@@ -14,6 +14,7 @@ module Bot
       private
 
       def feature(event, command, arguments)
+        return unless authorized?(event)
         return if !command.nil? &&
                   !assembler.feature_list.include?(command.capitalize)
 
@@ -28,6 +29,10 @@ module Bot
         else
           super(command)
         end
+      end
+
+      def server_authorization(_, _)
+        true
       end
     end
   end

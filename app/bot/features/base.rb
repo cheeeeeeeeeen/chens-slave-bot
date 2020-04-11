@@ -3,17 +3,17 @@ module Bot
     class Base
       attr_reader :bot, :assembler, :action, :permissions
 
-      def initialize(bot_obj, assembler_obj)
-        @bot = bot_obj
+      def initialize(assembler_obj)
+        @bot = assembler_obj.bot
         @assembler = assembler_obj
       end
 
-      def insert
+      def insert(is_public)
         bot.command bare_feature_name do |event, command, *arguments|
           feature(event, command, arguments)
           nil
         end
-        assembler.feature_list << bare_class_name
+        assembler.feature_list << bare_class_name if is_public
       end
 
       def self.options(_)
@@ -66,10 +66,25 @@ module Bot
       end
 
       def authorized?(event, command = nil)
+        case event.channel.type
+        when 0
+          server_authorization(event, command)
+        when 1
+          listen_dm?(event)
+        else
+          false
+        end
+      end
+
+      def server_authorization(event, command)
         initialize_permissions(event.server.id, command)
         return true if permitted_by_role?(event.user)
 
         event.respond('You are unauthorized to use this command.')
+        false
+      end
+
+      def listen_dm?(_)
         false
       end
     end
