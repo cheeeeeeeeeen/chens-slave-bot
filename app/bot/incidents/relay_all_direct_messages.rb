@@ -12,14 +12,14 @@ module Bot
       end
 
       def condition
-        event.channel.type == 1
+        event.channel.type == 1 && event.user.id != master_id
       end
 
       def channel_id
         @channel_id ||= begin
           response = Discordrb::API::User.create_pm(
             assembler.header_token,
-            ENV['MASTER_ID'].to_i
+            master_id
           )
           JSON.parse(response)['id'].to_i
         end
@@ -27,7 +27,12 @@ module Bot
 
       def sent_dm_message
         "**Direct Message** - <@#{event.user.id}> (#{event.user.id})\n" \
-        "\"#{event.message.content}\""
+        "\"#{event.message.content}\"\n" \
+        "Shortcut Reply: ```!puppet direct #{event.user.id} ```"
+      end
+
+      def master_id
+        @master_id ||= ENV['MASTER_ID'].to_i
       end
     end
   end

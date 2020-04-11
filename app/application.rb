@@ -4,7 +4,7 @@ module Application
   module_function
 
   def version
-    '1.3.0.0'
+    '1.3.0.1'
   end
 
   def environment
