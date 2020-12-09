@@ -1,0 +1,1 @@
+worker: bundle exec ruby app/run.rb
